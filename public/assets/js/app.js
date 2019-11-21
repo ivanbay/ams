@@ -612,7 +612,40 @@ $('.categories_chart_select').click(function () {
     $("#assetCategories_pie").html("");
 
     $("#" + content).show();
-    console.log(content);
+    init_morris_chart();
+    init_echart();
+});
+
+$('.status_chart_select').click(function () {
+    var content = $(this).attr('content');
+    
+    $("#status-numeric-content").hide();
+    $("#status-bar-content").hide();
+    $("#status-line-content").hide();
+    $("#status-pie-content").hide();
+    
+    $("#assetStatus_bar").html("");
+    $("#assetStatus_line").html("");
+    $("#assetStatus_pie").html("");
+
+    $("#" + content).show();
+    init_morris_chart();
+    init_echart();
+});
+
+$('.users_chart_select').click(function () {
+    var content = $(this).attr('content');
+    
+    $("#users-numeric-content").hide();
+    $("#users-bar-content").hide();
+    $("#users-line-content").hide();
+    $("#users-pie-content").hide();
+    
+    $("#userRole_bar").html("");
+    $("#userRole_line").html("");
+    $("#userRole_pie").html("");
+
+    $("#" + content).show();
     init_morris_chart();
     init_echart();
 });

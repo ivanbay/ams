@@ -27,13 +27,13 @@ class DashboardController extends Controller {
             Settings::clear();
         }
 
-        if (Settings::get(Auth::user()->id . '_dashboard')->dashboard_type == 'numeric') {
-
             $records['totalAsset'] = Asset::count();
             $records['deployedAssets'] = Asset::where('status', '=', 6)->count();
             $records['forDeployment'] = Asset::where('status', '=', 5)->count();
             $records['forMaintenance'] = Asset::where('status', '=', 7)->count();
             $records['activityLog'] = ActivityLog::with('user')->orderBy('created_at', 'desc')->take(5)->get();
+            
+        if (Settings::get(Auth::user()->id . '_dashboard')->dashboard_type == 'numeric') {
 
             $records['assetCategoriesCnt'] = Asset::select(DB::raw('asset_categories.name, count(assets.tag) assetCount'))
                     ->rightJoin('asset_categories', 'id', 'category')

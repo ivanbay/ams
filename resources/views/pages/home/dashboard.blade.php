@@ -142,28 +142,43 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table class="" style="width:100%">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table class="tile_info">
-                                            <tbody>
+                        <div id="status-numeric-content">
+                            <table class="" style="width:100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <table class="tile_info">
+                                                <tbody>
 
-                                                @foreach($records['assetStatusCnt'] as $status)
-                                                <tr>
-                                                    <td>
-                                                        <p>{{ $status->name }} </p>
-                                                    </td>
-                                                    <td><span class="badge">{{ $status->assetCount }}</span></td>
-                                                </tr>
-                                                @endforeach    
+                                                    @foreach($records['assetStatusCnt'] as $status)
+                                                    <tr>
+                                                        <td>
+                                                            <p>{{ $status->name }} </p>
+                                                        </td>
+                                                        <td><span class="badge">{{ $status->assetCount }}</span></td>
+                                                    </tr>
+                                                    @endforeach    
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                        <!-- bar -->
+                        <div id="status-bar-content" style="display: none;">
+                            <div id="assetStatus_bar" style="width:100%; height:230px;"></div>
+                        </div>
+
+                        <div id="status-line-content" style="display: none;">
+                            <div id="assetStatus_line" style="width:100%; height:230px;"></div>
+                        </div>
+
+                        <div id="status-pie-content" style="display: none;">
+                            <div id="assetStatus_pie" style="height:230px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -189,28 +204,43 @@
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <table class="" style="width:100%">
-                            <tbody>
-                                <tr>
-                                    <td>
-                                        <table class="tile_info">
-                                            <tbody>
+                        <div id="users-numeric-content">
+                            <table class="" style="width:100%">
+                                <tbody>
+                                    <tr>
+                                        <td>
+                                            <table class="tile_info">
+                                                <tbody>
 
-                                                @foreach($records['usersCount'] as $user)
-                                                <tr>
-                                                    <td>
-                                                        <p>{{ $user->name }} </p>
-                                                    </td>
-                                                    <td><span class="badge">{{ $user->userCount }}</span></td>
-                                                </tr>
-                                                @endforeach 
+                                                    @foreach($records['usersCount'] as $user)
+                                                    <tr>
+                                                        <td>
+                                                            <p>{{ $user->name }} </p>
+                                                        </td>
+                                                        <td><span class="badge">{{ $user->userCount }}</span></td>
+                                                    </tr>
+                                                    @endforeach 
 
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            </tbody>
-                        </table>
+                                                </tbody>
+                                            </table>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                        
+                         <!-- bar -->
+                        <div id="users-bar-content" style="display: none;">
+                            <div id="userRole_bar" style="width:100%; height:230px;"></div>
+                        </div>
+
+                        <div id="users-line-content" style="display: none;">
+                            <div id="userRole_line" style="width:100%; height:230px;"></div>
+                        </div>
+
+                        <div id="users-pie-content" style="display: none;">
+                            <div id="userRole_pie" style="height:230px;"></div>
+                        </div>
                     </div>
                 </div>
             </div>
