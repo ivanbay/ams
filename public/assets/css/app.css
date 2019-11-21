@@ -1,0 +1,49 @@
+.requiredBox {
+    border-color: red;
+}
+
+button.addViewForm {
+    margin: 0 0 0 3px;
+}
+
+.text-sm {
+    font-size: 12px;
+}
+
+.text-md {
+    font-size: 16px;
+}
+
+.text-lg {
+    font-size: 20px;
+}
+
+/* OVERIDES */
+
+.input-group {
+    margin-bottom: 0px !important;
+}
+
+.checkbox {
+    padding-top: 0px !important;
+}
+
+.checkbox label {
+    padding-left: 0px !important;
+}
+
+.form .input-group {
+    float: left !important;
+}
+
+.bootstrap-tagsinput {
+    display: block !important;
+}
+
+.tag label {
+    font-size: 100% !important;
+}
+
+.panel_toolbox {
+    min-width: 0px !important;
+}
