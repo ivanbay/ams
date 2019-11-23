@@ -79,7 +79,6 @@ class SystemController extends Controller {
         # DASHBOARD CONTENT
         # EMAIL NOTIFICATION
         Settings::set('email_alert', $request->get('email_alert'));
-        Settings::set('alert_recipient_list', $request->get('alert_recipient_list'));
         Settings::set('alert_cc_list', $request->get('alert_cc_list'));
         Settings::set('expiring_alert_threshold', $request->get('expiring_alert_threshold'));
         Settings::set('repair_alert_threshold', $request->get('repair_alert_threshold'));
@@ -144,6 +143,17 @@ class SystemController extends Controller {
      */
     public function destroy($id) {
         //
+    }
+
+    public function customDashboard($chart, $type) {
+        $settings = Settings::get(Auth::user()->id . "_dashboard");
+        $settings->dashboard_type = 'custom';
+        
+        $chart = $chart . "_type";
+        $settings->$chart = $type;
+
+        Settings::set(Auth::user()->id . "_dashboard", json_encode($settings));
+        Settings::clear();
     }
 
 }

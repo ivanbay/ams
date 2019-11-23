@@ -33,7 +33,7 @@ class DashboardController extends Controller {
             $records['forMaintenance'] = Asset::where('status', '=', 7)->count();
             $records['activityLog'] = ActivityLog::with('user')->orderBy('created_at', 'desc')->take(5)->get();
             
-        if (Settings::get(Auth::user()->id . '_dashboard')->dashboard_type == 'numeric') {
+        if (Settings::get(Auth::user()->id . '_dashboard')->dashboard_type == 'numeric' || Settings::get(Auth::user()->id . '_dashboard')->dashboard_type == 'custom') {
 
             $records['assetCategoriesCnt'] = Asset::select(DB::raw('asset_categories.name, count(assets.tag) assetCount'))
                     ->rightJoin('asset_categories', 'id', 'category')
@@ -91,6 +91,8 @@ class DashboardController extends Controller {
             $view = 'pages/home/dashboard_pie';
         } else if ($dashType == 'line') {
             $view = 'pages/home/dashboard_line';
+        } else if ($dashType == 'custom') {
+            $view = 'pages/home/dashboard_custom';
         } else {
             $view = 'pages/home/dashboard';
         }

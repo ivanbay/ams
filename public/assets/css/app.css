@@ -47,3 +47,7 @@ button.addViewForm {
 .panel_toolbox {
     min-width: 0px !important;
 }
+
+.fixed_height_450 {
+    height: 450px !important;
+}

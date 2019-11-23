@@ -204,6 +204,14 @@
                                             </div> Numbers
                                         </label>
                                     </div>
+                                    
+                                    <div class="radio">
+                                        <label class="">
+                                            <div class="iradio_flat-green" style="position: relative;">
+                                                <input type="radio" value="custom" class="flat" @if(Settings::get(Auth::user()->id . '_dashboard')->dashboard_type == 'custom') checked="" @endif name="dashboard_type" style="position: absolute; opacity: 0;"><ins class="iCheck-helper" style="position: absolute; top: 0%; left: 0%; display: block; width: 100%; height: 100%; margin: 0px; padding: 0px; background: rgb(255, 255, 255); border: 0px; opacity: 0;"></ins>
+                                            </div> Custom
+                                        </label>
+                                    </div>
                                 </div>
                             </div>
 
@@ -345,12 +353,6 @@
                                                 </div> Disable
                                             </label>
                                         </div>
-                                    </div>
-                                </div>
-                                <div class="form-group control-group row">
-                                    <label class="control-label col-lg-4 col-md-4 col-sm-6 col-xs-6">Alerts Recipients List:</label>
-                                    <div class="input-group col-lg-6 col-md-6 col-sm-4 col-xs-6">
-                                        <input type="text" name="alert_recipient_list" class="form-control tagsinput" value="{{ Settings::get('alert_recipient_list') }}" data-role="tagsinput" placeholder="Enter email and hit enter"/>
                                     </div>
                                 </div>
 

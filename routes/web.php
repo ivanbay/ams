@@ -109,6 +109,7 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api'], function() {
     Route::get("totalAssetsPerCategory", "DashboardController@getTotalAssetsPerCategory");
     Route::get("totalAssetsPerStatus", "DashboardController@getTotalAssetsPerStatus");
     Route::get("totalUsersPerRole", "DashboardController@getTotalUsersPerRole");
+    Route::get('settings/customDashboard/{chart}/{type}', '\App\Http\Controllers\Settings\SystemController@customDashboard');
 });
 
 

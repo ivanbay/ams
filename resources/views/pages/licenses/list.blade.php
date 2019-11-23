@@ -63,6 +63,13 @@
                             <tbody>
                                 @if(isset($licenses) && !empty($licenses))
                                 @foreach($licenses as $license)
+                                    @php $assignedTo = ""; @endphp
+                                    
+                                    @if( !empty($license->assignedTo))
+                                    @foreach($license->assignedTo as $assign)
+                                        @php $assignedTo .= '<a href="'. route('profile.show', $assign->asset_id)  .'" data-toggle="tooltip" data-placement="top" title="View profile">' . $assign->asset_id . '</a>' . ','; @endphp
+                                    @endforeach
+                                    @endif
                                 <tr>
                                     <td>{{ $license->license_type }}</td>
                                     <td>{{ $license->manufacturer }}</td>
@@ -72,11 +79,7 @@
                                     <td>{{ $license->number_of_usage - count($license->assignedTo) }}</td>
                                     <td>{{ $license->cost != '' ? "Php " . number_format($license->cost, 2) : '-' }}</td>
                                     <td>{{ $license->description}}</td>
-                                    <td>
-                                        @if( !empty($license->assignedTo))
-                                        {{ $license->assignedTo->implode('asset_id', ', ') }}
-                                        @endif
-                                    </td>
+                                    <td>{!! rtrim($assignedTo, ",") !!}</td>
                                     <td>{{ date('F d, Y', strtotime($license->acquisition_date)) }}</td>
                                     <td>{{ date('F d, Y', strtotime($license->expiry_date)) }}</td>
 

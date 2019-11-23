@@ -109,10 +109,10 @@
 
         <!-- /menu footer buttons -->
         <div class="sidebar-footer hidden-small">
-            <a data-toggle="tooltip" data-placement="top" title="FullScreen">
+            <a style="cursor: arrow;">
                 &nbsp;
             </a>
-            <a data-toggle="tooltip" data-placement="top" title="Lock">
+            <a style="cursor: arrow;">
                 &nbsp;
             </a>
             <a href="{{ url('settings/system') }}" data-toggle="tooltip" data-placement="top" title="Settings">

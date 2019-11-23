@@ -66,8 +66,8 @@ $(document).ready(function () {
         orderCellsTop: true,
         fixedHeader: true
     });
-    
-    
+
+
 
 });
 
@@ -263,6 +263,7 @@ $('table.personnelsTable').on('click', 'button.btnEdit', function () {
                 form.find('input[name=employeeID]').val(data.id);
                 form.find('input[name=lastName]').val(data.lastname);
                 form.find('input[name=firstName]').val(data.firstname);
+                form.find('input[name=email]').val(data.email);
                 form.find('input[name=contactNumber]').val(data.contact);
                 form.find('button#btnEdit').prop("disabled", false);
                 break;
@@ -601,53 +602,83 @@ $('.genericDelete').delegate('button.btnDelete', 'click', function () {
 
 $('.categories_chart_select').click(function () {
     var content = $(this).attr('content');
-    
+
+    var sContent = content.split("-");
+    var type = sContent[1];
+
+    $.ajax({url: APP_URL + "/api/settings/customDashboard/asset_per_category/" + type, type: "GET", async: false});
+
     $("#categories-numeric-content").hide();
     $("#categories-bar-content").hide();
     $("#categories-line-content").hide();
     $("#categories-pie-content").hide();
-    
+
     $("#assetCategories_bar").html("");
     $("#assetCategories_line").html("");
     $("#assetCategories_pie").html("");
 
     $("#" + content).show();
-    init_morris_chart();
-    init_echart();
+
+    if (content == 'categories-bar-content') {
+        chart_buildAssetCategoriesBar();
+    } else if (content == 'categories-line-content') {
+        chart_buildAssetCategoriesLine();
+    } else if (content == 'categories-pie-content') {
+        chart_buildAssetCategoriesPie();
+    }
 });
 
 $('.status_chart_select').click(function () {
     var content = $(this).attr('content');
-    
+
+    var sContent = content.split("-");
+    var type = sContent[1];
+
+    $.ajax({url: APP_URL + "/api/settings/customDashboard/asset_per_status/" + type, type: "GET", async: false});
+
     $("#status-numeric-content").hide();
     $("#status-bar-content").hide();
     $("#status-line-content").hide();
     $("#status-pie-content").hide();
-    
+
     $("#assetStatus_bar").html("");
     $("#assetStatus_line").html("");
     $("#assetStatus_pie").html("");
 
     $("#" + content).show();
-    init_morris_chart();
-    init_echart();
+    if (content == 'status-bar-content') {
+        chart_buildAssetStatusBar();
+    } else if (content == 'status-line-content') {
+        chart_buildAssetStatusLine();
+    } else if (content == 'status-pie-content') {
+        chart_buildAssetStatusPie();
+    }
 });
 
 $('.users_chart_select').click(function () {
     var content = $(this).attr('content');
-    
+
+    var sContent = content.split("-");
+    var type = sContent[1];
+    $.ajax({url: APP_URL + "/api/settings/customDashboard/user_per_role/" + type, type: "GET", async: false});
+
     $("#users-numeric-content").hide();
     $("#users-bar-content").hide();
     $("#users-line-content").hide();
     $("#users-pie-content").hide();
-    
+
     $("#userRole_bar").html("");
     $("#userRole_line").html("");
     $("#userRole_pie").html("");
 
     $("#" + content).show();
-    init_morris_chart();
-    init_echart();
+    if (content == 'users-bar-content') {
+        chart_buildUserRoleBar();
+    } else if (content == 'users-line-content') {
+        chart_buildUserRoleLine();
+    } else if (content == 'users-pie-content') {
+        chart_buildUserRolePie();
+    }
 });
 
 function errorNotification() {
@@ -819,6 +850,113 @@ function init_morris_chart() {
 
 }
 
+var theme = {
+    color: [
+        '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
+        '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
+    ],
+
+    title: {
+        itemGap: 8,
+        textStyle: {
+            fontWeight: 'normal',
+            color: '#408829'
+        }
+    },
+
+    dataRange: {
+        color: ['#1f610a', '#97b58d']
+    },
+
+    toolbox: {
+        color: ['#408829', '#408829', '#408829', '#408829']
+    },
+
+    tooltip: {
+        backgroundColor: 'rgba(0,0,0,0.5)',
+        axisPointer: {
+            type: 'line',
+            lineStyle: {
+                color: '#408829',
+                type: 'dashed'
+            },
+            crossStyle: {
+                color: '#408829'
+            },
+            shadowStyle: {
+                color: 'rgba(200,200,200,0.3)'
+            }
+        }
+    },
+
+    dataZoom: {
+        dataBackgroundColor: '#eee',
+        fillerColor: 'rgba(64,136,41,0.2)',
+        handleColor: '#408829'
+    },
+    grid: {
+        borderWidth: 0
+    },
+
+    categoryAxis: {
+        axisLine: {
+            lineStyle: {
+                color: '#408829'
+            }
+        },
+        splitLine: {
+            lineStyle: {
+                color: ['#eee']
+            }
+        }
+    },
+
+    valueAxis: {
+        axisLine: {
+            lineStyle: {
+                color: '#408829'
+            }
+        },
+        splitArea: {
+            show: true,
+            areaStyle: {
+                color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
+            }
+        },
+        splitLine: {
+            lineStyle: {
+                color: ['#eee']
+            }
+        }
+    },
+    timeline: {
+        lineStyle: {
+            color: '#408829'
+        },
+        controlStyle: {
+            normal: {color: '#408829'},
+            emphasis: {color: '#408829'}
+        }
+    },
+
+    k: {
+        itemStyle: {
+            normal: {
+                color: '#68a54a',
+                color0: '#a9cba2',
+                lineStyle: {
+                    width: 1,
+                    color: '#408829',
+                    color0: '#86b379'
+                }
+            }
+        }
+    },
+    textStyle: {
+        fontFamily: 'Arial, Verdana, sans-serif'
+    },
+};
+
 function init_echart() {
 
     if (typeof (echarts) === 'undefined') {
@@ -827,112 +965,6 @@ function init_echart() {
     console.log('init_echarts');
 
 
-    var theme = {
-        color: [
-            '#26B99A', '#34495E', '#BDC3C7', '#3498DB',
-            '#9B59B6', '#8abb6f', '#759c6a', '#bfd3b7'
-        ],
-
-        title: {
-            itemGap: 8,
-            textStyle: {
-                fontWeight: 'normal',
-                color: '#408829'
-            }
-        },
-
-        dataRange: {
-            color: ['#1f610a', '#97b58d']
-        },
-
-        toolbox: {
-            color: ['#408829', '#408829', '#408829', '#408829']
-        },
-
-        tooltip: {
-            backgroundColor: 'rgba(0,0,0,0.5)',
-            axisPointer: {
-                type: 'line',
-                lineStyle: {
-                    color: '#408829',
-                    type: 'dashed'
-                },
-                crossStyle: {
-                    color: '#408829'
-                },
-                shadowStyle: {
-                    color: 'rgba(200,200,200,0.3)'
-                }
-            }
-        },
-
-        dataZoom: {
-            dataBackgroundColor: '#eee',
-            fillerColor: 'rgba(64,136,41,0.2)',
-            handleColor: '#408829'
-        },
-        grid: {
-            borderWidth: 0
-        },
-
-        categoryAxis: {
-            axisLine: {
-                lineStyle: {
-                    color: '#408829'
-                }
-            },
-            splitLine: {
-                lineStyle: {
-                    color: ['#eee']
-                }
-            }
-        },
-
-        valueAxis: {
-            axisLine: {
-                lineStyle: {
-                    color: '#408829'
-                }
-            },
-            splitArea: {
-                show: true,
-                areaStyle: {
-                    color: ['rgba(250,250,250,0.1)', 'rgba(200,200,200,0.1)']
-                }
-            },
-            splitLine: {
-                lineStyle: {
-                    color: ['#eee']
-                }
-            }
-        },
-        timeline: {
-            lineStyle: {
-                color: '#408829'
-            },
-            controlStyle: {
-                normal: {color: '#408829'},
-                emphasis: {color: '#408829'}
-            }
-        },
-
-        k: {
-            itemStyle: {
-                normal: {
-                    color: '#68a54a',
-                    color0: '#a9cba2',
-                    lineStyle: {
-                        width: 1,
-                        color: '#408829',
-                        color0: '#86b379'
-                    }
-                }
-            }
-        },
-        textStyle: {
-            fontFamily: 'Arial, Verdana, sans-serif'
-        }
-    };
 
     if ($('#totalAssets_pie').length) {
 
@@ -1061,4 +1093,193 @@ function init_echart() {
         });
 
     }
+}
+
+function chart_buildAssetCategoriesBar() {
+    var data = $.ajax({url: APP_URL + "/api/totalAssetsPerCategory", type: "GET", async: false}).responseText;
+
+    Morris.Bar({
+        element: 'assetCategories_bar',
+        data: JSON.parse(data),
+        xkey: 'name',
+        ykeys: ['value'],
+        labels: ['Asset Count'],
+        barRatio: 0.4,
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        resize: true
+    });
+}
+
+function chart_buildAssetStatusBar() {
+    var data = $.ajax({url: APP_URL + "/api/totalAssetsPerStatus", type: "GET", async: false}).responseText;
+
+    Morris.Bar({
+        element: 'assetStatus_bar',
+        data: JSON.parse(data),
+        xkey: 'name',
+        ykeys: ['value'],
+        labels: ['Asset Count'],
+        barRatio: 0.4,
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        resize: true
+    });
+}
+
+function chart_buildUserRoleBar() {
+    var data = $.ajax({url: APP_URL + "/api/totalUsersPerRole", type: "GET", async: false}).responseText;
+
+    Morris.Bar({
+        element: 'userRole_bar',
+        data: JSON.parse(data),
+        xkey: 'name',
+        ykeys: ['value'],
+        labels: ['Asset Count'],
+        barRatio: 0.4,
+        barColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB'],
+        xLabelAngle: 35,
+        hideHover: 'auto',
+        resize: true
+    });
+}
+
+function chart_buildAssetCategoriesLine() {
+    var data = $.ajax({url: APP_URL + "/api/totalAssetsPerCategory", type: "GET", async: false}).responseText;
+
+    Morris.Line({
+        element: 'assetCategories_line',
+        data: JSON.parse(data),
+        xkey: 'name',
+        parseTime: false,
+        ykeys: ['value'],
+        labels: ['Assets'],
+        lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB']
+    });
+}
+
+function chart_buildAssetStatusLine() {
+    var data = $.ajax({url: APP_URL + "/api/totalAssetsPerStatus", type: "GET", async: false}).responseText;
+
+    Morris.Line({
+        element: 'assetStatus_line',
+        data: JSON.parse(data),
+        xkey: 'name',
+        parseTime: false,
+        ykeys: ['value'],
+        labels: ['Assets'],
+        lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB']
+    });
+}
+
+function chart_buildUserRoleLine() {
+    var data = $.ajax({url: APP_URL + "/api/totalUsersPerRole", type: "GET", async: false}).responseText;
+
+    Morris.Line({
+        element: 'userRole_line',
+        data: JSON.parse(data),
+        xkey: 'name',
+        parseTime: false,
+        ykeys: ['value'],
+        labels: ['Users'],
+        lineColors: ['#26B99A', '#34495E', '#ACADAC', '#3498DB']
+    });
+}
+
+function chart_buildAssetCategoriesPie() {
+
+    var echartPie = echarts.init(document.getElementById('assetCategories_pie'), theme);
+    var data = $.ajax({url: APP_URL + "/api/totalAssetsPerCategory", type: "GET", async: false}).responseText;
+
+    echartPie.setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x: 'center',
+            y: 'bottom',
+            data: ["Electronic Device", "Furniture", "Machinery", "Land", "Equipment", "Building"]
+        },
+        calculable: true,
+        series: [{
+                name: 'Assets',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '48%'],
+                label: {
+                    normal: {
+                        formatter: '{c} ({d}%)'
+                    }
+                },
+                data: JSON.parse(data)
+            }]
+    });
+
+}
+
+function chart_buildAssetStatusPie() {
+
+    var echartPie = echarts.init(document.getElementById('assetStatus_pie'), theme);
+    var data = $.ajax({url: APP_URL + "/api/totalAssetsPerStatus", type: "GET", async: false}).responseText;
+
+    echartPie.setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x: 'center',
+            y: 'bottom',
+            data: ["Deployed", "Available", "Broken - Not Fixable(Disposed)", "For Maintenance", "Ready to Deploy", "Out for Repair", "Lost/Stolen", "In Stock"]
+        },
+        calculable: true,
+        series: [{
+                name: 'Assets',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '48%'],
+                label: {
+                    normal: {
+                        formatter: '{c} ({d}%)'
+                    }
+                },
+                data: JSON.parse(data)
+            }]
+    });
+
+}
+
+function chart_buildUserRolePie() {
+
+    var echartPie = echarts.init(document.getElementById('userRole_pie'), theme);
+    var data = $.ajax({url: APP_URL + "/api/totalUsersPerRole", type: "GET", async: false}).responseText;
+
+    echartPie.setOption({
+        tooltip: {
+            trigger: 'item',
+            formatter: "{a} <br/>{b} : {c} ({d}%)"
+        },
+        legend: {
+            x: 'center',
+            y: 'bottom',
+            data: ["Technician", "Allocator", "Viewer", "Administrator"]
+        },
+        calculable: true,
+        series: [{
+                name: 'Users',
+                type: 'pie',
+                radius: '55%',
+                center: ['50%', '48%'],
+                label: {
+                    normal: {
+                        formatter: '{c} ({d}%)'
+                    }
+                },
+                data: JSON.parse(data)
+            }]
+    });
+
 }

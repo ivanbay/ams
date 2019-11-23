@@ -85,7 +85,7 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                     </div>
                     <div class="x_content">
 
-                        <div id="categories-numeric-content">
+                        <div id="categories-numeric-content" @if(property_exists($settings, 'asset_per_category_type') && $settings->asset_per_category_type == 'numeric' || !property_exists($settings, 'asset_per_category_type')) style="display: block;" @else style="display: none;" @endif>
                             <table class="" style="width:100%">
                                 <tbody>
                                     <tr>
@@ -111,15 +111,15 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                         </div>
 
                         <!-- bar -->
-                        <div id="categories-bar-content" style="display:none;">
+                        <div id="categories-bar-content" @if(property_exists($settings, 'asset_per_category_type') && $settings->asset_per_category_type == 'bar') style="display: block;" @else style="display: none;" @endif>
                             <div id="assetCategories_bar" style="width:100%; height:350px;"></div>
                         </div>
 
-                        <div id="categories-line-content" style="display:none;">
+                        <div id="categories-line-content" @if(property_exists($settings, 'asset_per_category_type') && $settings->asset_per_category_type == 'line') style="display: block;" @else style="display: none;" @endif>
                             <div id="assetCategories_line" style="width:100%; height:350px;"></div>
                         </div>
 
-                        <div id="categories-pie-content"  style="display:none;">
+                        <div id="categories-pie-content" @if(property_exists($settings, 'asset_per_category_type') && $settings->asset_per_category_type == 'pie') style="display: block;" @else style="display: none;" @endif>
                             <div id="assetCategories_pie" style="height:350px;"></div>
                         </div>
 
@@ -148,7 +148,7 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div id="status-numeric-content">
+                        <div id="status-numeric-content" @if(property_exists($settings, 'asset_per_status_type') && $settings->asset_per_status_type == 'numeric' || !property_exists($settings, 'asset_per_status_type')) style="display: block;" @else style="display: none;" @endif>
                             <table class="" style="width:100%">
                                 <tbody>
                                     <tr>
@@ -174,15 +174,15 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                         </div>
                         
                         <!-- bar -->
-                        <div id="status-bar-content"  style="display:none;">
+                        <div id="status-bar-content" @if(property_exists($settings, 'asset_per_status_type') && $settings->asset_per_status_type == 'bar') style="display: block;" @else style="display: none;" @endif>
                             <div id="assetStatus_bar" style="width:100%; height:350px;"></div>
                         </div>
 
-                        <div id="status-line-content" style="display:none;">
+                        <div id="status-line-content" @if(property_exists($settings, 'asset_per_status_type') && $settings->asset_per_status_type == 'line') style="display: block;" @else style="display: none;" @endif>
                             <div id="assetStatus_line" style="width:100%; height:350px;"></div>
                         </div>
 
-                        <div id="status-pie-content" style="display:none;">
+                        <div id="status-pie-content" @if(property_exists($settings, 'asset_per_status_type') && $settings->asset_per_status_type == 'pie') style="display: block;" @else style="display: none;" @endif>
                             <div id="assetStatus_pie" style="height:350px;"></div>
                         </div>
                     </div>
@@ -210,7 +210,7 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                         <div class="clearfix"></div>
                     </div>
                     <div class="x_content">
-                        <div id="users-numeric-content">
+                        <div id="users-numeric-content" @if(property_exists($settings, 'user_per_role_type') && $settings->user_per_role_type == 'numeric' || !property_exists($settings, 'user_per_role_type')) style="display: block;" @else style="display: none;" @endif>
                             <table class="" style="width:100%">
                                 <tbody>
                                     <tr>
@@ -236,15 +236,15 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                         </div>
                         
                          <!-- bar -->
-                        <div id="users-bar-content" style="display:none;">
+                        <div id="users-bar-content" @if(property_exists($settings, 'user_per_role_type') && $settings->user_per_role_type == 'bar') style="display: block;" @else style="display: none;" @endif>
                             <div id="userRole_bar" style="width:100%; height:350px;"></div>
                         </div>
 
-                        <div id="users-line-content" style="display:none;">
+                        <div id="users-line-content" @if(property_exists($settings, 'user_per_role_type') && $settings->user_per_role_type == 'line') style="display: block;" @else style="display: none;" @endif>
                             <div id="userRole_line" style="width:100%; height:350px;"></div>
                         </div>
 
-                        <div id="users-pie-content" style="display:none;">
+                        <div id="users-pie-content" @if(property_exists($settings, 'user_per_role_type') && $settings->user_per_role_type == 'pie') style="display: block;" @else style="display: none;" @endif>
                             <div id="userRole_pie" style="height:350px;"></div>
                         </div>
                     </div>

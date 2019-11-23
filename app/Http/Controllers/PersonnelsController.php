@@ -43,6 +43,7 @@ class PersonnelsController extends Controller {
         $lastname = $request->get('lastName');
         $firstname = $request->get('firstName');
         $contact = $request->get('contactNumber');
+        $email = $request->get('email');
 
         try {
             $personnel = Personnel::firstOrNew(array('id' => $empId));
@@ -50,6 +51,7 @@ class PersonnelsController extends Controller {
             $personnel->firstname = ucwords($firstname);
             $personnel->lastname = ucwords($lastname);
             $personnel->contact = $contact;
+            $personnel->email = $email;
 
             if ($personnel->exists) {
                 Logging::logActivity("Personnel " . $empId . " information was updated.");

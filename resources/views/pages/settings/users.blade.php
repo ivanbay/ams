@@ -38,6 +38,7 @@
                                     <th>User ID</th>
                                     <th>Username</th>
                                     <th>Name</th>
+                                    <th>Email</th>
                                     <th>Role</th>
                                     <th>Date Added</th>
                                     <th width='100px'>Action</th>
@@ -52,6 +53,7 @@
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->username }}</td>
                                     <td>{{ $user->name }}</td>
+                                    <td>{{ $user->email }}</td>
                                     <td>{{ $user->role }}</td>
                                     <td>{{ $user->created_at }}</td>
                                     <td>
@@ -106,7 +108,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address: <small><i>(Optional)</i></small></label>
+                        <label class="control-label col-md-3 col-sm-3 col-xs-12">Email Address:</label>
                         <div class="col-md-8 col-sm-6 col-xs-12">
                             <input type="text" name="email" class="form-control" placeholder="Enter email address">
                             <div id="div-message" style="margin: 5px 0 0 0;"></div>

@@ -330,8 +330,8 @@
                                                 </tr>
                                             </thead>
                                             <tbody>
-
-                                                @if(!empty($asset->assignedLicense))
+                                                
+                                                @if(!empty($asset->assignedLicense  ))
                                                 <tr>
                                                     <td>
                                                         <div class="pull-left">
@@ -341,7 +341,7 @@
                                                         </div>
                                                     </td>
                                                     <td>{{ $asset->assignedLicense->license->license_key }}</td>
-                                                    <td>{{ $asset->assignedLicense->license->license_type->name }}</td>
+                                                    <td>{{ $asset->assignedLicense->license->license_type }}</td>
                                                     <td>{{ $asset->assignedLicense->license->description }}</td>
                                                     <td>{{ date('F d, Y', strtotime($asset->assignedLicense->created_at)) }}</td>
                                                 </tr>

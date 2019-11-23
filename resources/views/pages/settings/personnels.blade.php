@@ -39,6 +39,7 @@
                                     <th>Employee ID</th>
                                     <th>Last Name</th>
                                     <th>First Name</th>
+                                    <th>Email Address</th>
                                     <th>Contact Number</th>
                                     <th>Date Added</th>
                                     <th width='100px'>Action</th>
@@ -53,6 +54,7 @@
                                     <td><a href="{{ URL('profile/personnel') }}/{{ $personnel->id }}" data-toggle="tooltip" data-placement="top" title="View profile">{{ $personnel->id }}</a></td>
                                     <td>{{ $personnel->lastname }}</td>
                                     <td>{{ $personnel->firstname }}</td>
+                                    <td>{{ $personnel->email }}</td>
                                     <td>{{ $personnel->contact }}</td>
                                     <td>{{ $personnel->created_at }}</td>
                                     <td>
@@ -105,7 +107,13 @@
                                     <div id="div-message" style="margin: 5px 0 0 0;"></div>
                                 </div>
                                 
-                                 <div class="form-group">
+                                <div class="form-group">
+                                    <label>Email: </label>
+                                    <input type="text" name="email" class="form-control" placeholder="Enter email">
+                                    <div id="div-message" style="margin: 5px 0 0 0;"></div>
+                                </div>
+                                
+                                <div class="form-group">
                                     <label>Contact Number: </label>
                                     <input type="text" name="contactNumber" class="form-control" placeholder="Enter contact number" data-parsley-type="number">
                                     <div id="div-message" style="margin: 5px 0 0 0;"></div>
