@@ -86,7 +86,7 @@ $settings = Settings::get(Auth::user()->id . '_dashboard');
                     <div class="x_content">
 
                         <div id="categories-numeric-content" @if(property_exists($settings, 'asset_per_category_type') && $settings->asset_per_category_type == 'numeric' || !property_exists($settings, 'asset_per_category_type')) style="display: block;" @else style="display: none;" @endif>
-                            <table class="" style="width:100%">
+                            <table style="width:100%">
                                 <tbody>
                                     <tr>
                                         <td>

@@ -112,6 +112,11 @@ Route::group(['middleware' => 'auth', 'prefix' => 'api'], function() {
     Route::get('settings/customDashboard/{chart}/{type}', '\App\Http\Controllers\Settings\SystemController@customDashboard');
 });
 
+Route::group(['middleware' => 'auth', 'prefix' => 'help'], function() {
+    Route::get('userguide', 'HelpController@userGuide');
+    Route::get('installation', 'HelpController@installationInstruction');
+});
+
 
 
 Route::get("logout", function() {
